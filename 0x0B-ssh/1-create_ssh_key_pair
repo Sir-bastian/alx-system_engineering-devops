@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#A script that creates an RSA key pair with the following parameters
+#Name of privakey - school
+#Number of bits in the created key - 4096
+#Created key must be protected by the passphrase - betty
+
+ssh-keygen -t rsa -b 4096 -P betty -f school
