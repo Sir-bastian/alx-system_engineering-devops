@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# A script that redirects to another page
+#The redirectionmust be a "301 Moved Permanently"
+
+
+apt-get update
+apt-get install -y nginx
+
+sudo bash -c 'cat > /etc/nginx/sites-available/default << EOF
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  root   /etc/nginx/html;
+  index  index.html index.htm;
+
+  location /redirect_me {
+	return 301 http://example.com/another_page;
+  }
+
+  location / {
+	return 200 "Hello Worl!";
+  }
+}
+EOF
+
+service nginx restart
