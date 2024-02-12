@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# A script that accepts one argument and then runs whoami
+#+	command under the user passed as an argument
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <username>"
+	exit 1
+fi
+
+#Get the username argument
+username=$1
+
+#Run the whoami command under specified user
+sudo -u "$username" whoami
