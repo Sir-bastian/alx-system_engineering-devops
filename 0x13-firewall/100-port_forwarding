@@ -1,0 +1,35 @@
+#
+# rules.before
+#
+# Rules that should be run before the ufw command line added rules. Custom
+# rules should be added to one of these chains:
+#   ufw-before-input
+#   ufw-before-output
+#   ufw-before-forward
+#
+
+# NAT table rules
+*nat
+:PREROUTING ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# Redirect port 8080/TCP to port 80/TCP
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+# Don't delete the 'COMMIT' line or these nat table rules won't be processed
+COMMIT
+
+# Don't delete these required lines, otherwise there will be errors
+-A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP
+-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
+-A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
+-A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
+-A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+-A ufw-before-input -p udp --sport 67 --dport 68 -j ACCEPT
+-A ufw-before-input -j DROP
+-A ufw-before-output -j ACCEPT
+-A ufw-before-forward -j DROP
+
+# Don't delete the following line or these rules won't be processed
+COMMIT
