@@ -12,7 +12,8 @@ import sys
 def number_of_subscribers(subreddit):
     """Get the number of subscribers by subreddit given"""
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {'User-Agent': 'request'}
+    headers = {'user-agent': 'request'}
+
     response = requests.get(url, headers=headers,
                             allow_redirects=False)
 
