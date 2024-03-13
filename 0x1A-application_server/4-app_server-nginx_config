@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Nginx route /api/ points to a Gunicorn instance.
 
 server {
